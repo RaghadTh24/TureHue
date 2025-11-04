@@ -281,7 +281,7 @@ input[type="file"] {
     align-items: center;
     gap: 4vh;
   }
-  .image-box {
+ .image-box {
     width: 90vw;
     max-width: 400px;
     aspect-ratio: auto;
@@ -290,9 +290,10 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none; /* إزالة الحدود */
   }
   .image-box.loaded {
-    border: 2px solid #9B5DE0;
+    border: none; /* إزالة الحدود عند تحميل الصورة */
   }
   .image-box img {
     width: 100%;
