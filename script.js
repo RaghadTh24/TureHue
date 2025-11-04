@@ -115,8 +115,7 @@ function applyColorBlindness(rgb, type) {
   return [Math.round(newR), Math.round(newG), Math.round(newB)];
 }
 
-// إنشاء النقطة على الصورة
-// إنشاء النقطة على الصورة مع أنميشن Fade in فقط
+// إنشاء النقطة على الصورة مع Fade in
 function createDot(x, y, colorObj) {
   const dot = document.createElement('div');
   dot.className = 'color-dot';
@@ -129,52 +128,48 @@ function createDot(x, y, colorObj) {
   dot.style.color = brightness > 200 ? '#000' : '#fff';
   dot.style.border = brightness > 200 ? '2px solid #000' : '2px solid #fff';
 
-  // محتوى الدائرة: التصنيف فوق واسم اللون بين قوسين تحت
   dot.innerHTML = `
     <div style="font-size: 10px; line-height: 1;">${colorObj.category}</div>
     <div style="font-size: 9px; line-height: 1;">(${colorObj.name})</div>
   `;
-
   dot.style.display = 'flex';
   dot.style.flexDirection = 'column';
   dot.style.justifyContent = 'center';
   dot.style.alignItems = 'center';
   dot.style.textAlign = 'center';
-  dot.style.opacity = 0;          // البداية شفافة
-  dot.style.transition = 'opacity 0.3s ease-out'; // أنميشن Fade in
+  dot.style.opacity = 0;
+  dot.style.transition = 'opacity 0.3s ease-out';
 
   imageContainer.appendChild(dot);
 
-  // تأخير بسيط لتطبيق الانتقال
-  setTimeout(() => {
-    dot.style.opacity = 1;
-  }, 10);
+  setTimeout(() => { dot.style.opacity = 1; }, 10);
 }
 
-
 // تحديث لون عمى الألوان
-function updateBlindColor(colorObj,type){
-  if(!colorObj) return;
+function updateBlindColor(colorObj, type) {
+  if (!colorObj) return;
   currentColorBlindType = type;
   colorBlindActive = type !== 'none';
   const blindColorBox = document.getElementById('blindColor');
   const blindHex = document.getElementById('blindHex');
   const blindName = document.getElementById('blindName');
-  const newRgb = applyColorBlindness(colorObj.rgb,type);
+  const newRgb = applyColorBlindness(colorObj.rgb, type);
   const newColorObj = rgbToColorName(newRgb);
   blindColorBox.style.backgroundColor = `rgb(${newRgb.join(',')})`;
   blindHex.innerText = `RGB(${newRgb.join(',')})`;
-  let label='';
-  if(type==='protanopia') label='رؤية عمى اللون الأحمر';
-  else if(type==='deuteranopia') label='رؤية عمى اللون الأخضر';
-  else if(type==='tritanopia') label='رؤية عمى اللون الأزرق';
-  else label=`${newColorObj.category} (${newColorObj.name})`;
+
+  let label = '';
+  if (type === 'protanopia') label = 'رؤية عمى اللون الأحمر';
+  else if (type === 'deuteranopia') label = 'رؤية عمى اللون الأخضر';
+  else if (type === 'tritanopia') label = 'رؤية عمى اللون الأزرق';
+  else label = `${newColorObj.category} (${newColorObj.name})`;
+
   blindName.innerText = label;
 }
 
-// التعامل مع رفع الصورة وحساب الـ Pie
+// التعامل مع رفع الصورة وحساب Pie Chart
 function handleFile(file) {
-  if(!file) return;
+  if (!file) return;
   const reader = new FileReader();
   reader.readAsDataURL(file);
 
@@ -183,21 +178,27 @@ function handleFile(file) {
     img.src = e.target.result;
 
     img.onload = function() {
+      // إزالة أي محتوى سابق
       imageContainer.innerHTML = '';
       pieContainer.innerHTML = '';
 
+      // ضبط أبعاد الصورة مع الحفاظ على القيود
       let displayWidth = img.naturalWidth;
       let displayHeight = img.naturalHeight;
       const aspect = displayWidth / displayHeight;
-      if(displayWidth > MAX_WIDTH){ displayWidth = MAX_WIDTH; displayHeight = MAX_WIDTH / aspect; }
-      else if(displayWidth < MIN_WIDTH){ displayWidth = MIN_WIDTH; displayHeight = MIN_WIDTH / aspect; }
+      if (displayWidth > MAX_WIDTH) { displayWidth = MAX_WIDTH; displayHeight = MAX_WIDTH / aspect; }
+      else if (displayWidth < MIN_WIDTH) { displayWidth = MIN_WIDTH; displayHeight = MIN_WIDTH / aspect; }
 
       img.width = displayWidth;
       img.height = displayHeight;
-      imageContainer.style.width = displayWidth+'px';
-      imageContainer.style.height = displayHeight+'px';
+
+      // ضبط container للصورة
+      imageContainer.style.width = displayWidth + 'px';
+      imageContainer.style.height = displayHeight + 'px';
+      imageContainer.classList.add('loaded'); // إضافة كلاس لإظهار الحدود
       imageContainer.appendChild(img);
 
+      // إنشاء Canvas لحساب الألوان
       const canvas = document.createElement('canvas');
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
@@ -206,13 +207,13 @@ function handleFile(file) {
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       const count = {};
-      for(let i=0;i<imageData.length;i+=4){
-        const key = `${imageData[i]},${imageData[i+1]},${imageData[i+2]}`;
-        count[key] = (count[key] || 0) +1;
+      for (let i = 0; i < imageData.length; i += 4) {
+        const key = `${imageData[i]},${imageData[i + 1]},${imageData[i + 2]}`;
+        count[key] = (count[key] || 0) + 1;
       }
 
       const namedCount = {};
-      for(const key in count){
+      for (const key in count) {
         const rgbArr = key.split(',').map(Number);
         const cObj = rgbToColorName(rgbArr);
         const display = `${cObj.name} (${cObj.category})`;
@@ -229,7 +230,7 @@ function handleFile(file) {
       const bgColors = labels.map(l=>{
         const base = l.split(' (')[0];
         const c = colors.find(c=>c.name===base);
-        return c?`rgb(${c.rgb.join(',')})`:'#ccc';
+        return c ? `rgb(${c.rgb.join(',')})` : '#ccc';
       });
 
       new Chart(canvasChart.getContext('2d'), {
@@ -238,11 +239,14 @@ function handleFile(file) {
           labels: labels.map((l,i)=>`${l} (${data[i]}%)`),
           datasets:[{ data:data, backgroundColor:bgColors, borderColor:'#fff', borderWidth:2 }]
         },
-        options:{ responsive:true, maintainAspectRatio:false,
+        options:{
+          responsive:true,
+          maintainAspectRatio:false,
           plugins:{ legend:{ position:'bottom', labels:{ color:'#000', boxWidth:20, padding:15 } } }
         }
       });
 
+      // التفاعل عند النقر على الصورة
       img.addEventListener('click', e=>{
         const rect = img.getBoundingClientRect();
         const scaleX = img.naturalWidth / img.width;
@@ -250,7 +254,7 @@ function handleFile(file) {
         const x = (e.clientX - rect.left) * scaleX;
         const y = (e.clientY - rect.top) * scaleY;
         const pixel = ctx.getImageData(x, y, 1, 1).data;
-        const colorObj = rgbToColorName([pixel[0],pixel[1],pixel[2]]);
+        const colorObj = rgbToColorName([pixel[0], pixel[1], pixel[2]]);
         lastColorObj = colorObj;
 
         createDot(e.clientX - rect.left, e.clientY - rect.top, colorObj);
@@ -270,26 +274,27 @@ function handleFile(file) {
 }
 
 // الأحداث
-imageUpload.addEventListener('change', e=>handleFile(e.target.files[0]));
-clearDotsBtn.addEventListener('click', ()=>{
-  document.querySelectorAll('.color-dot').forEach(dot=>dot.remove());
-  document.getElementById('normalColor').style.backgroundColor='';
-  document.getElementById('normalHex').innerText='—';
-  document.getElementById('normalName').innerText='—';
-  document.getElementById('blindColor').style.backgroundColor='';
-  document.getElementById('blindHex').innerText='—';
-  document.getElementById('blindName').innerText='—';
-  currentColorBlindType='none';
-  lastColorObj=null;
-  colorBlindActive=false;
+imageUpload.addEventListener('change', e => handleFile(e.target.files[0]));
+
+clearDotsBtn.addEventListener('click', () => {
+  document.querySelectorAll('.color-dot').forEach(dot => dot.remove());
+  document.getElementById('normalColor').style.backgroundColor = '';
+  document.getElementById('normalHex').innerText = '—';
+  document.getElementById('normalName').innerText = '—';
+  document.getElementById('blindColor').style.backgroundColor = '';
+  document.getElementById('blindHex').innerText = '—';
+  document.getElementById('blindName').innerText = '—';
+  currentColorBlindType = 'none';
+  lastColorObj = null;
+  colorBlindActive = false;
   if(activeButton) activeButton.classList.remove('active-btn');
-  activeButton=null;
+  activeButton = null;
 });
 
 // أزرار عمى الألوان
-['protanopia','deuteranopia','tritanopia'].forEach(type=>{
+['protanopia','deuteranopia','tritanopia'].forEach(type => {
   const btn = document.getElementById(type);
-  btn.addEventListener('click', ()=>{
+  btn.addEventListener('click', () => {
     if(activeButton) activeButton.classList.remove('active-btn');
     btn.classList.add('active-btn');
     activeButton = btn;
