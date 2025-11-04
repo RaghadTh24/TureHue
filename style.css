@@ -58,18 +58,18 @@ input[type="file"] {
   gap: 4vw;
   margin-top: 4vh;
   padding: 0 5vw;
-  flex-wrap: nowrap; /* الصورة والـ Pie جنب بعض على الشاشات الكبيرة */
+  flex-wrap: nowrap;
   margin-bottom: 8vh;
 }
 
 /* ====== Image Box ====== */
+/* ====== Image Box (افتراضي قبل رفع الصورة) ====== */
 .image-box {
   width: 90vw;
   max-width: 1000px;
-  height: auto;
-  aspect-ratio: 16/9;
-  border: 2px solid #9B5DE0;
-  background: transparent;
+  aspect-ratio: 16/9;            /* نفس الحجم السابق */
+  border: 2px solid #9B5DE0;     /* حدود واضحة */
+  background-color: rgba(0,0,0,0.05); /* لون خلفية خفيف لإظهار الصندوق */
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -77,6 +77,23 @@ input[type="file"] {
   align-items: center;
   overflow: hidden;
 }
+
+/* عند رفع الصورة */
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* عند تحميل الصورة داخل الصندوق */
+.image-box.loaded img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
 .image-box img {
   width: 100%;
   height: 100%;
@@ -257,110 +274,89 @@ input[type="file"] {
   line-height: 1.5;
 }
 
-
+/* ====== Responsive for Mobile ====== */
 @media (max-width: 768px) {
-
-  /* ====== Output Section ====== */
   .output-section {
-    flex-direction: column; /* الصورة فوق pie */
-    align-items: center;    /* توسيط */
+    flex-direction: column;
+    align-items: center;
     gap: 4vh;
   }
-
-  /* ====== Image Box ====== */
-
- .image-box {
-    display: inline-flex;       /* الحاوية مرنة حسب محتوى الصورة */
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #9B5DE0;  /* يظهر الحد حول الصورة */
+  .image-box {
+    width: 90vw;
+    max-width: 400px;
+    aspect-ratio: auto;
     border-radius: 10px;
     overflow: hidden;
-    padding: 0;
-    max-width: 90vw;            /* أقصى عرض مسموح */
-    max-height: 80vh;           /* أقصى ارتفاع مسموح */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
+  .image-box.loaded {
+    border: 2px solid #9B5DE0;
+  }
   .image-box img {
-    display: block;
-    width: 100%;                /* يملأ الحاوية بالكامل */
-    height: auto;               /* يحافظ على نسبة الصورة */
-    max-width: 100%;            /* تصغير الصور الكبيرة */
-    max-height: 100%;           /* تصغير الصور الكبيرة */
-    object-fit: contain;        /* لا تقص الصورة، الحاوية تحتويها بالكامل */
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
-  /* ====== Pie Box ====== */
   .pie-box {
     width: 50vw;
     max-width: 300px;
   }
-
-  /* ====== Color Blindness Section ====== */
   .color-blindness-section {
-    flex-direction: column; /* عمودي */
+    flex-direction: column;
     align-items: center;
     gap: 3vh;
   }
-
-  /* المستطيلين فوق بعض */
   .color-display {
     width: 80%;
     display: flex;
-    flex-direction: column; /* المستطيلين فوق بعض */
+    flex-direction: column;
     gap: 3vh;
     align-items: center;
-    order: 1; /* المستطيلين أولًا */
+    order: 1;
   }
-
   .color-box {
     width: 100%;
-    max-width: 350px; /* حجم أكبر للجوال */
-    height: 120px;    /* ارتفاع مناسب */
+    max-width: 350px;
+    height: 120px;
   }
-
-  /* تكبير المربعات الصغيرة داخل المستطيلين */
   .color-square {
     width: 6vw;
     max-width: 100px;
     height: 6vw;
     max-height: 100px;
   }
-
-  /* الأزرار تحت المستطيلين */
   .instructions-2 {
     width: 100%;
     display: flex;
-    justify-content: center; /* توسيط الأزرار */
-    order: 2; /* بعد المستطيلين */
+    justify-content: center;
+    order: 2;
     margin-top: 2vh;
     font-weight: normal;
   }
-
   .buttons-group {
-    flex-direction: row; /* الأزرار بجانب بعض */
+    flex-direction: row;
     gap: 3vw;
-    flex-wrap: wrap;     /* تسمح بانكسار الأزرار إذا ضاق العرض */
+    flex-wrap: wrap;
     justify-content: center;
   }
-
   .blind-btn {
     width: auto;
     padding: 1vh 3vw;
     font-size: 1.1em;
   }
-
-  /* ====== Instructions Text Smaller ====== */
   .instructions p {
-    font-size: 0.9em; /* أصغر قليلاً */
+    font-size: 0.9em;
   }
-
-  /* ====== Color Dots Bigger ====== */
   .color-dot {
     width: 8vw;
     max-width: 80px;
     height: 8vw;
     max-height: 80px;
     font-size: 9px;
-    font-weight: normal; /* نص عادي */
+    font-weight: normal;
   }
 }
