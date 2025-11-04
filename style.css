@@ -257,20 +257,39 @@ input[type="file"] {
   line-height: 1.5;
 }
 
+
 @media (max-width: 768px) {
 
   /* ====== Output Section ====== */
   .output-section {
     flex-direction: column; /* الصورة فوق pie */
     align-items: center;    /* توسيط */
-    gap: 4vh;               /* فرق بينهم */
+    gap: 4vh;
   }
 
-  .image-box {
-    width: 90vw;
-    max-width: 350px;
+  /* ====== Image Box ====== */
+
+ .image-box {
+    display: inline-flex;       /* الحاوية مرنة حسب محتوى الصورة */
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #9B5DE0;  /* يظهر الحد حول الصورة */
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    max-width: 90vw;            /* أقصى عرض مسموح */
+    max-height: 80vh;           /* أقصى ارتفاع مسموح */
   }
 
+  .image-box img {
+    display: block;
+    width: 100%;                /* يملأ الحاوية بالكامل */
+    height: auto;               /* يحافظ على نسبة الصورة */
+    max-width: 100%;            /* تصغير الصور الكبيرة */
+    max-height: 100%;           /* تصغير الصور الكبيرة */
+    object-fit: contain;        /* لا تقص الصورة، الحاوية تحتويها بالكامل */
+  }
+  /* ====== Pie Box ====== */
   .pie-box {
     width: 50vw;
     max-width: 300px;
@@ -314,7 +333,7 @@ input[type="file"] {
     justify-content: center; /* توسيط الأزرار */
     order: 2; /* بعد المستطيلين */
     margin-top: 2vh;
-     font-weight: normal; 
+    font-weight: normal;
   }
 
   .buttons-group {
@@ -330,16 +349,18 @@ input[type="file"] {
     font-size: 1.1em;
   }
 
-   .instructions p {
-    font-size: 0.9em; /* أصغر قليلًا من 1.3em */
+  /* ====== Instructions Text Smaller ====== */
+  .instructions p {
+    font-size: 0.9em; /* أصغر قليلاً */
   }
-.color-dot {
-    width: 8vw;      
-    max-width: 80px; 
+
+  /* ====== Color Dots Bigger ====== */
+  .color-dot {
+    width: 8vw;
+    max-width: 80px;
     height: 8vw;
     max-height: 80px;
-    font-size: 9px;  
-    font-weight: normal; /* نص عادي بدل بولد */
-}
-
+    font-size: 9px;
+    font-weight: normal; /* نص عادي */
+  }
 }
