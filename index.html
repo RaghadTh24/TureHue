@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TureHue</title>
+
+<!-- خط Tajawal -->
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- ملف التنسيق -->
+<link rel="stylesheet" href="style.css">
+
+<!-- مكتبة Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+
+<body>
+  <!-- الشريط العلوي -->
+  <div class="top-bar">
+    <img src="TureHue.png" class="logo" alt="TureHue">
+  </div>
+
+  <!-- العنوان والتعليمات -->
+  <div class="instructions">
+    <h1>تحليل الألوان في الصورة</h1>
+    <p>
+      الآن يمكنك رؤية الألوان الصحيحة للصور ومرر الماوس فوق أي نقطة في الصورة لمعرفة اللون،
+      وانقر لرسم دائرة. <br>
+      يتم تحليل أكثر 5 ألوان انتشارًا في الصورة.
+    </p>
+  </div>
+
+  <!-- زر اختيار الصورة -->
+  <label class="custom-file-upload">
+    <input type="file" id="imageUpload" accept="image/*">
+    اختر صورة
+  </label>
+
+  <!-- قسم الصورة والمخطط -->
+  <div id="dropZone" class="output-section">
+    <div id="imageContainer" class="image-box"></div>
+
+    <div class="pie-section">
+      <div class="pie-box" id="pieContainer"></div>
+      <button id="clearDots">مسح النقاط</button>
+    </div>
+  </div>
+
+  <!-- عنوان القسم الثاني -->
+  <div class="color-blindness-header">
+    <h2>اختبر كيف يظهر اللون لمصابين عمى الألوان</h2>
+    <p>اختر لون من الصورة لتعرف كيف يراه الأشخاص المصابون بأنواع مختلفة من عمى الألوان.</p>
+  </div>
+
+  <!-- القسم الثاني -->
+  <div class="color-blindness-section">
+    <!-- الأزرار على اليمين -->
+    <div class="instructions-2">
+      <div class="buttons-group">
+        <button class="blind-btn" id="protanopia" style="background-color: #BF092F;">رؤية عمى اللون الأحمر</button>
+        <button class="blind-btn" id="deuteranopia" style="background-color: #41A67E;">رؤية عمى اللون الأخضر</button>
+        <button class="blind-btn" id="tritanopia" style="background-color: #1055C9;">رؤية عمى اللون الأزرق</button>
+      </div>
+    </div>
+
+    <!-- المستطيلات على اليسار -->
+    <div class="color-display">
+     <!-- اللون الصحيح -->
+<div class="color-box">
+  <h3>اللون الصحيح</h3>
+  <div class="color-row">
+    <div class="color-square" id="normalColor"></div>
+    <div class="color-info">
+      <span id="normalHex">—</span> |
+      <span id="normalName">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- لون الشخص المصاب -->
+<div class="color-box">
+  <h3 id="blindTypeTitle">رؤية مصاب عمى الألوان</h3>
+  <div class="color-row">
+    <div class="color-square" id="blindColor"></div>
+    <div class="color-info">
+      <span id="blindHex">—</span> |
+      <span id="blindName">—</span>
+    </div>
+  </div>
+</div>
+
+
+
+    </div>
+
+  </div>
+
+  <!-- الفوتر -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <h3>TureHue</h3>
+    <p>
+      TureHue هو موقع يتيح لك تحليل ألوان الصور بسهولة، معرفة أكثر 5 ألوان انتشارًا، 
+      ورؤية كيف يراها الأشخاص المصابون بأنواع مختلفة من عمى الألوان.
+    </p>
+    <p>© 2025 جميع الحقوق محفوظة</p>
+  </div>
+</footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
