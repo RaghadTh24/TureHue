@@ -1,3 +1,4 @@
+/* ====== Body & Fonts ====== */
 body {
   font-family: 'Tajawal', Arial, Helvetica, sans-serif;
   background-color: #222222;
@@ -6,7 +7,7 @@ body {
   text-align: center;
 }
 
-/* الشريط العلوي */
+/* ====== Top Bar ====== */
 .top-bar {
   background-color: rgba(105, 111, 199, 0.8);
   height: 120px;
@@ -19,7 +20,7 @@ body {
   height: 130px;
 }
 
-/* تعليمات */
+/* ====== Instructions ====== */
 .instructions h1 {
   color: #fff;
   margin: 40px 0 10px 0;
@@ -33,7 +34,7 @@ body {
   font-weight: 300;
 }
 
-/* زر رفع الصور */
+/* ====== Custom File Upload ====== */
 .custom-file-upload {
   display: inline-block;
   padding: 12px 28px;
@@ -50,7 +51,7 @@ input[type="file"] {
   display: none;
 }
 
-/* قسم الصورة والـ Pie */
+/* ====== Output Section ====== */
 .output-section {
   display: flex;
   justify-content: center;
@@ -60,7 +61,7 @@ input[type="file"] {
   padding: 0 100px;
 }
 
-/* صندوق الصورة */
+/* ====== Image Box ====== */
 .image-box {
   width: 1000px;
   height: 450px;
@@ -80,7 +81,7 @@ input[type="file"] {
   object-fit: contain;
 }
 
-/* صندوق الـ Pie */
+/* ====== Pie Box ====== */
 .pie-box {
   width: 360px;
   height: 360px;
@@ -99,9 +100,9 @@ input[type="file"] {
   transform: scale(1.02);
 }
 
-/* زر مسح النقاط */
+/* ====== Clear Dots Button ====== */
 #clearDots {
-  font-family: 'Tajawal', Arial, Helvetica, sans-serif; /* نفس خط الموقع */
+  font-family: 'Tajawal', Arial, Helvetica, sans-serif;
   display: block;
   margin: 25px auto 0 auto;
   padding: 14px 24px;
@@ -112,14 +113,14 @@ input[type="file"] {
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
-   font-size: 1.2em;  
+  font-size: 1.2em;
 }
 
 #clearDots:hover {
   background-color: #e64b6b;
 }
 
-/* النقاط */
+/* ====== Color Dots ====== */
 .color-dot {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -136,10 +137,11 @@ input[type="file"] {
   pointer-events: none;
   transition: opacity 0.3s;
 }
-/* عنوان القسم الثاني */
+
+/* ====== Color Blindness Section ====== */
 .color-blindness-header {
-  text-align: center;   
-  margin: 40px 0 20px 0; 
+  text-align: center;
+  margin: 40px 0 20px 0;
   color: #fff;
 }
 
@@ -154,48 +156,45 @@ input[type="file"] {
   margin: 0;
 }
 
-/* القسم الثاني - عمى الألوان */
 .color-blindness-section {
   display: flex;
-  justify-content: flex-start; /* يحرك كل المحتوى إلى اليسار */
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 500px; /* المسافة بين المستطيلين والأزرار */
+  gap: 500px;
   padding: 60px 100px;
-  direction: rtl; /* يحتفظ بالاتجاه العربي للأزرار */
+  direction: rtl;
 }
 
-/* الأزرار والنص على اليمين */
 .instructions-2 {
-  width: 380px;             
+  width: 380px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;    
+  align-items: flex-end;
   text-align: right;
-  gap: 10px;               
-  margin-right: -60px;      
+  gap: 10px;
+  margin-right: -60px;
 }
 
 .instructions-2 p {
   color: #fff;
   font-size: 1.05em;
   margin: 0;
-  width: 220px;             
+  width: 220px;
   line-height: 1.6;
-  text-align: center;       
-  align-self: center;       
+  text-align: center;
+  align-self: center;
 }
 
-/* الأزرار فوق بعض */
 .buttons-group {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 18px;
-  margin-top: 50px; /* نزّل الأزرار لتكون بمحاذاة المستطيلات */
+  margin-top: 50px;
 }
 
 .blind-btn {
-  font-family: 'Tajawal', Arial, Helvetica, sans-serif; /* نفس خط الموقع */
+  font-family: 'Tajawal', Arial, Helvetica, sans-serif;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -206,7 +205,7 @@ input[type="file"] {
   transition: 0.3s;
   width: 220px;
   text-align: center;
-  background-color: #4A4FC7; /* لون افتراضي للزر */
+  background-color: #4A4FC7;
 }
 
 .blind-btn:hover {
@@ -214,13 +213,11 @@ input[type="file"] {
   transform: scale(1.05);
 }
 
-/* الزر المضغوط - غامق */
 .blind-btn.active-btn {
-  background-color: #222266; /* غامق أكثر عند الضغط */
+  background-color: #222266;
   color: #fff;
 }
 
-/* المستطيلات على اليسار */
 .color-display {
   width: 35%;
   display: flex;
@@ -251,16 +248,16 @@ input[type="file"] {
   background-color: #696FC7;
   border-radius: 12px;
   padding: 10px 20px;
-  text-align: center; /* المحتوى داخل المستطيل في الوسط */
+  text-align: center;
 }
 
 .color-info {
-  text-align: center; /* نص RGB + رؤية عمى اللون في الوسط */
+  text-align: center;
   font-size: 1.1em;
   font-weight: 500;
 }
 
-/* الفوتر */
+/* ====== Footer ====== */
 .site-footer {
   background-color: #333366;
   color: #fff;
@@ -279,4 +276,47 @@ input[type="file"] {
   margin: 5px 0;
   font-size: 1em;
   line-height: 1.5;
+}
+
+/* ====== Media Queries for Responsiveness ====== */
+@media (max-width: 1024px) {
+  .output-section {
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 30px;
+  }
+
+  .image-box {
+    width: 90%;
+    max-width: 1000px;
+    height: 400px;
+  }
+
+  .pie-box {
+    width: 360px;
+    max-width: 90%;
+    height: 360px;
+    margin: 0 auto;
+  }
+
+  .color-blindness-section {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .instructions-2 {
+    width: 100%;
+    align-items: center;
+    margin-right: 0;
+  }
+
+  .buttons-group {
+    align-items: center;
+  }
+
+  .color-display {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
