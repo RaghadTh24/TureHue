@@ -116,35 +116,41 @@ function applyColorBlindness(rgb, type) {
 }
 
 // إنشاء النقطة على الصورة
+// إنشاء النقطة على الصورة مع أنميشن Fade in فقط
 function createDot(x, y, colorObj) {
   const dot = document.createElement('div');
   dot.className = 'color-dot';
   dot.style.left = `${x}px`;
   dot.style.top = `${y}px`;
-  
-  const [r,g,b] = colorObj.rgb;
+
+  const [r, g, b] = colorObj.rgb;
   const brightness = (r + g + b) / 3;
   dot.style.backgroundColor = `rgba(${r},${g},${b},0.35)`;
   dot.style.color = brightness > 200 ? '#000' : '#fff';
   dot.style.border = brightness > 200 ? '2px solid #000' : '2px solid #fff';
-  
+
   // محتوى الدائرة: التصنيف فوق واسم اللون بين قوسين تحت
-  dot.innerHTML = `<div style="font-size: 10px; line-height: 1;">${colorObj.category}</div>
-                   <div style="font-size: 9px; line-height: 1;">(${colorObj.name})</div>`;
-  
+  dot.innerHTML = `
+    <div style="font-size: 10px; line-height: 1;">${colorObj.category}</div>
+    <div style="font-size: 9px; line-height: 1;">(${colorObj.name})</div>
+  `;
+
   dot.style.display = 'flex';
   dot.style.flexDirection = 'column';
   dot.style.justifyContent = 'center';
   dot.style.alignItems = 'center';
   dot.style.textAlign = 'center';
-  
+  dot.style.opacity = 0;          // البداية شفافة
+  dot.style.transition = 'opacity 0.3s ease-out'; // أنميشن Fade in
+
   imageContainer.appendChild(dot);
 
-  dot.animate(
-    [{ transform: 'scale(0)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
-    { duration: 300, easing: 'ease-out' }
-  );
+  // تأخير بسيط لتطبيق الانتقال
+  setTimeout(() => {
+    dot.style.opacity = 1;
+  }, 10);
 }
+
 
 // تحديث لون عمى الألوان
 function updateBlindColor(colorObj,type){
@@ -278,7 +284,6 @@ clearDotsBtn.addEventListener('click', ()=>{
   colorBlindActive=false;
   if(activeButton) activeButton.classList.remove('active-btn');
   activeButton=null;
-  pieContainer.innerHTML='';
 });
 
 // أزرار عمى الألوان
