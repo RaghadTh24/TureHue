@@ -40,7 +40,7 @@ body {
   background-color: #9B5DE0;
   color: #fff;
   border-radius: 12px;
-   font-size: 1.3em;
+  font-size: 1.3em;
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 2vh;
@@ -58,8 +58,8 @@ input[type="file"] {
   gap: 4vw;
   margin-top: 4vh;
   padding: 0 5vw;
-  flex-wrap: wrap;
-  margin-bottom: 8vh; /* ← زيادة المسافة أسفل القسم الأول */
+  flex-wrap: nowrap; /* الصورة والـ Pie جنب بعض على الشاشات الكبيرة */
+  margin-bottom: 8vh;
 }
 
 /* ====== Image Box ====== */
@@ -145,7 +145,7 @@ input[type="file"] {
 /* ====== Color Blindness Section ====== */
 .color-blindness-section {
   display: flex;
-  justify-content: flex-start; /* خلي العناصر تبدأ من اليسار */
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 5vw;
   padding: 6vh 5vw;
@@ -153,7 +153,7 @@ input[type="file"] {
   flex-wrap: wrap;
 }
 
-/* نضيف مسافة صغيرة لليمين لتباعد الأزرار عن المستطيلات */
+/* ====== Instructions 2 ====== */
 .instructions-2 {
   width: 380px;
   display: flex;
@@ -161,9 +161,8 @@ input[type="file"] {
   align-items: flex-end;
   text-align: right;
   gap: 1vh;
-  margin-right: 1vw; /* قللنا المسافة السالبة، خليهم أقرب لليسار */
+  margin-right: 1vw;
 }
-
 .instructions-2 p {
   color: #fff;
   font-size: 1.05em;
@@ -258,46 +257,89 @@ input[type="file"] {
   line-height: 1.5;
 }
 
-/* ====== Media Queries for Responsiveness ===== */
-@media (max-width: 1024px) {
-  .output-section {
-    flex-direction: column;
-    gap: 3vh;
-    align-items: center;
-    padding: 0 5vw;
-  }
-  .image-box {
-    width: 90%;
-    height: auto;
-    max-height: 400px;
-  }
-  .pie-box {
-    width: 80%;
-    height: auto;
-    max-height: 360px;
-    margin: 0 auto;
-  }
-  .color-blindness-section {
-    flex-direction: column;
-    gap: 3vh;
-    padding: 2vh 5vw;
-    align-items: center;
-  }
-  .instructions-2, .color-display {
-    width: 90%;
-    align-items: center;
-    text-align: center;
-  }
-  .buttons-group {
-    align-items: center;
-  }
-}
-
 @media (max-width: 768px) {
-  .color-square { width: 8vw; height: 8vw; }
-  .color-dot { width: 6vw; height: 6vw; }
-  .blind-btn { width: 70%; }
-  .image-box { height: auto; }
-  .pie-box { width: 70%; }
+
+  /* ====== Output Section ====== */
+  .output-section {
+    flex-direction: column; /* الصورة فوق pie */
+    align-items: center;    /* توسيط */
+    gap: 4vh;               /* فرق بينهم */
+  }
+
+  .image-box {
+    width: 90vw;
+    max-width: 400px;
+  }
+
+  .pie-box {
+    width: 50vw;
+    max-width: 300px;
+  }
+
+  /* ====== Color Blindness Section ====== */
+  .color-blindness-section {
+    flex-direction: column; /* عمودي */
+    align-items: center;
+    gap: 3vh;
+  }
+
+  /* المستطيلين فوق بعض */
+  .color-display {
+    width: 80%;
+    display: flex;
+    flex-direction: column; /* المستطيلين فوق بعض */
+    gap: 3vh;
+    align-items: center;
+    order: 1; /* المستطيلين أولًا */
+  }
+
+  .color-box {
+    width: 100%;
+    max-width: 350px; /* حجم أكبر للجوال */
+    height: 120px;    /* ارتفاع مناسب */
+  }
+
+  /* تكبير المربعات الصغيرة داخل المستطيلين */
+  .color-square {
+    width: 6vw;
+    max-width: 100px;
+    height: 6vw;
+    max-height: 100px;
+  }
+
+  /* الأزرار تحت المستطيلين */
+  .instructions-2 {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* توسيط الأزرار */
+    order: 2; /* بعد المستطيلين */
+    margin-top: 2vh;
+     font-weight: normal; 
+  }
+
+  .buttons-group {
+    flex-direction: row; /* الأزرار بجانب بعض */
+    gap: 3vw;
+    flex-wrap: wrap;     /* تسمح بانكسار الأزرار إذا ضاق العرض */
+    justify-content: center;
+  }
+
+  .blind-btn {
+    width: auto;
+    padding: 1vh 3vw;
+    font-size: 1.1em;
+  }
+
+   .instructions p {
+    font-size: 0.9em; /* أصغر قليلًا من 1.3em */
+  }
+.color-dot {
+    width: 8vw;      
+    max-width: 80px; 
+    height: 8vw;
+    max-height: 80px;
+    font-size: 9px;  
+    font-weight: normal; /* نص عادي بدل بولد */
 }
 
+}
